@@ -9,6 +9,12 @@ EXTRA_OEMAKE = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${TARGET_PREFIX}gcc ${TOOLCHA
 
 DEPENDS += "dtc-native bc-native"
 
+PACKAGECONFIG ??= "openssl"
+# u-boot will compile its own tools during the build, with specific
+# configurations (aka when CONFIG_FIT_SIGNATURE is enabled) openssl is needed as
+# a host build dependency.
+PACKAGECONFIG[openssl] = ",,openssl-native"
+
 # Allow setting an additional version string that will be picked up by the
 # u-boot build system and appended to the u-boot version.  If the .scmversion
 # file already exists it will not be overwritten.
